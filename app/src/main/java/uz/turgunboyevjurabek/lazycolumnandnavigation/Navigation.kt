@@ -13,6 +13,9 @@ fun Navigation() {
         composable(route= Screen.MainClass.rout){
             MainClass(navController = navController)
         }
+        composable(route = Screen.SecondClass.rout){
+
+        }
 
     }
 
