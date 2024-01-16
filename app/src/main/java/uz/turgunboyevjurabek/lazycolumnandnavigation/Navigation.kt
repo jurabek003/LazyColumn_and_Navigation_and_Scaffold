@@ -15,15 +15,9 @@ fun Navigation() {
         composable(route= Screen.MainClass.rout){
             MainClass(navController = navController)
         }
-        composable(route = Screen.SecondClass.rout+"/{key}",
-            arguments = listOf(navArgument("key"){
-                type= NavType.StringType
-                defaultValue="allambalo"
-                nullable=true
-            })
-        ){
+        composable(route = Screen.SecondClass.rout){
 
-            SecondClass(navController = navController, key = it.arguments?.getString("key") )
+            SecondClass(navController = navController)
 
         }
 

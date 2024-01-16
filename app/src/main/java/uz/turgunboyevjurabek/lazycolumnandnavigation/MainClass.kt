@@ -34,6 +34,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -44,6 +46,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.navArgument
 import uz.turgunboyevjurabek.lazycolumnandnavigation.madels.Data
+import uz.turgunboyevjurabek.lazycolumnandnavigation.madels.DataObject
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,17 +61,17 @@ fun MainClass(navController: NavController) {
                 .nestedScroll(myscrollBehavior.nestedScrollConnection),
             topBar = {
                 TopAppBar(
-                    title = { Text(text = "Jetpack Compose") },
+                    title = { Text(text = "Jetpack Compose", fontWeight = FontWeight.SemiBold, fontFamily = FontFamily.Serif, fontSize = 25.sp, color = Color.White ) },
                     colors = topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        titleContentColor = MaterialTheme.colorScheme.primary,
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        actionIconContentColor = Color.White
                     ),
                     scrollBehavior = myscrollBehavior,
                     actions = {
                         IconButton(onClick = { /* do something */ }) {
                             Icon(
                                 imageVector = Icons.Filled.Menu,
-                                contentDescription = "Localized description"
+                                contentDescription = "Localized description",
                             )
                         }
                     }
@@ -83,20 +86,20 @@ fun MainClass(navController: NavController) {
             ) {
                 val list=ArrayList<Data>()
                 list.addAll(listOf(
+                    Data(painterResource(id = R.drawable.r1),"Android", "Jetpack Compose"),
+                    Data(painterResource(id = R.drawable.r2),"Android", "Jetpack Compose"),
+                    Data(painterResource(id = R.drawable.r3),"Android", "Jetpack Compose"),
+                    Data(painterResource(id = R.drawable.r3),"Android", "Jetpack Compose"),
+                    Data(painterResource(id = R.drawable.r4),"Android", "Jetpack Compose"),
+                    Data(painterResource(id = R.drawable.r5),"Android", "Jetpack Compose"),
+                    Data(painterResource(id = R.drawable.r6),"Android", "Jetpack Compose"),
+                    Data(painterResource(id = R.drawable.r7),"Android", "Jetpack Compose"),
+                    Data(painterResource(id = R.drawable.r8),"Android", "Jetpack Compose"),
+                    Data(painterResource(id = R.drawable.r9),"Android", "Jetpack Compose"),
+                    Data(painterResource(id = R.drawable.r10),"Android", "Jetpack Compose"),
+                    Data(painterResource(id = R.drawable.r11),"Android", "Jetpack Compose"),
                     Data(painterResource(id = R.drawable.ic_launcher_foreground),"Android", "Jetpack Compose"),
-                    Data(painterResource(id = R.drawable.ic_launcher_foreground),"Android", "Jetpack Compose"),
-                    Data(painterResource(id = R.drawable.ic_launcher_foreground),"Android", "Jetpack Compose"),
-                    Data(painterResource(id = R.drawable.ic_launcher_foreground),"Android", "Jetpack Compose"),
-                    Data(painterResource(id = R.drawable.ic_launcher_foreground),"Android", "Jetpack Compose"),
-                    Data(painterResource(id = R.drawable.ic_launcher_foreground),"Android", "Jetpack Compose"),
-                    Data(painterResource(id = R.drawable.ic_launcher_foreground),"Android", "Jetpack Compose"),
-                    Data(painterResource(id = R.drawable.ic_launcher_foreground),"Android", "Jetpack Compose"),
-                    Data(painterResource(id = R.drawable.ic_launcher_foreground),"Android", "Jetpack Compose"),
-                    Data(painterResource(id = R.drawable.ic_launcher_foreground),"Android", "Jetpack Compose"),
-                    Data(painterResource(id = R.drawable.ic_launcher_foreground),"Android", "Jetpack Compose"),
-                    Data(painterResource(id = R.drawable.ic_launcher_foreground),"Android", "Jetpack Compose"),
-                    Data(painterResource(id = R.drawable.ic_launcher_foreground),"Android", "Jetpack Compose"),
-                    Data(painterResource(id = R.drawable.ic_launcher_foreground),"Android", "Jetpack Compose"),
+                    Data(painterResource(id = R.drawable.r1),"Android", "Jetpack Compose"),
                     Data(painterResource(id = R.drawable.ic_launcher_foreground),"Android", "Jetpack Compose"),
                     Data(painterResource(id = R.drawable.ic_launcher_foreground),"Android", "Jetpack Compose"),
                     Data(painterResource(id = R.drawable.ic_launcher_foreground),"Android", "Jetpack Compose"),
@@ -140,7 +143,10 @@ fun ItemUi(data: Data,navController: NavController) {
     ){
         Column(modifier = Modifier
             .clickable {
-                navController.navigate(Screen.SecondClass.rout + "/${data.nomi}")
+                val list = ArrayList<Data>()
+                list.add(data)
+                DataObject.data = data
+                navController.navigate(Screen.SecondClass.rout)
             }
             .fillMaxSize()
             .background(
@@ -153,7 +159,8 @@ fun ItemUi(data: Data,navController: NavController) {
             )) {
             Image(painter = data.img, contentDescription = null, modifier = Modifier
                 .fillMaxWidth()
-                .height(70.dp))
+                .height(70.dp),
+                contentScale = ContentScale.FillBounds)
             Text(text = data.nomi, fontWeight = FontWeight.SemiBold, fontFamily = FontFamily.Serif, color = Color.Black, fontSize = 20.sp, modifier = Modifier.padding(start = 10.dp))
             Spacer(modifier = Modifier.height(5.dp))
             Text(text = data.description, fontWeight = FontWeight.SemiBold, fontFamily = FontFamily.Serif, color = Color.Black, fontSize = 15.sp, modifier = Modifier.padding(start = 10.dp))
